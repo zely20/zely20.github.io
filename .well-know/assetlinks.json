@@ -1,9 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.zelianko.spacenews",
-    "sha256_cert_fingerprints":
-    ["90:66:6B:13:3C:90:CD:7A:25:9C:6B:5F:A2:43:01:05:78:32:F1:33:82:6A:B8:D0:27:CB:5C:D1:C8:F3:3F:4E"]
-  }
-}]
