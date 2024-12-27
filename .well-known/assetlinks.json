@@ -1,11 +1,15 @@
 [
   {
-    "relation": ["delegate_permission/common.handle_all_urls"],
+    "relation": [
+      "delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"
+    ],
     "target": {
       "namespace": "android_app",
       "package_name": "com.zelianko.spacenews",
-      "sha256_cert_fingerprints":
-        ["AD:BF:33:E4:FE:0E:63:F8:42:F6:B4:80:10:0B:C5:0A:A9:F6:79:30:3B:4B:79:A6:CB:A7:79:77:E9:BF:FA:1D"]
+      "sha256_cert_fingerprints": [
+        "AD:BF:33:E4:FE:0E:63:F8:42:F6:B4:80:10:0B:C5:0A:A9:F6:79:30:3B:4B:79:A6:CB:A7:79:77:E9:BF:FA:1D"
+      ]
     }
   }
 ]
