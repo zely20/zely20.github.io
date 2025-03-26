@@ -1,9 +1,357 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Radio - Лучшие радиостанции в вашем смартфоне</title>
+    <style>
+        :root {
+            --primary: #4a76a8;
+            --secondary: #2b547e;
+            --accent: #f39c12;
+            --light: #f5f5f5;
+            --dark: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 75% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .app-screenshot {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform: translateY(20px);
+            opacity: 0;
+        }
+        
+        .app-screenshot.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .app-screenshot:hover {
+            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        
+        .feature-card.animated {
+            transform: scale(1);
+            opacity: 1;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover .feature-icon {
+            transform: rotate(15deg) scale(1.2);
+        }
+        
+        .download-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.6s ease-out;
+        }
+        
+        .download-section.animated {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+        }
+        
+        .download-btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(243, 156, 18, 0.3);
+        }
+        
+        .download-btn:hover::after {
+            animation: shine 1.5s infinite;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes shine {
+            0% { left: -60%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        /* Анимация волн в шапке */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f5f5f5" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f5f5f5" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f5f5f5"/></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            animation: wave 10s linear infinite;
+            z-index: 1;
+        }
+        
+        .wave:nth-child(2) {
+            animation-delay: -5s;
+            opacity: 0.7;
+        }
+        
+        .wave:nth-child(3) {
+            animation-delay: -2s;
+            opacity: 0.4;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .feature-card {
+                width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
 <body>
-<h1>This is page is developing</h1>
-<p>This is page is developing</p>
-<p>For any questions, please contact us by email zely1984@gmail.com
-</p>
+    <header>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="logo">Online Radio</div>
+        <div class="tagline">Тысячи радиостанций со всего мира в вашем кармане. Слушайте любимую музыку, новости и подкасты где угодно!</div>
+    </header>
+    
+    <div class="container">
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-music"></i>
+                </div>
+                <h3>Богатая коллекция</h3>
+                <p>Доступ к тысячам радиостанций различных жанров: от поп-музыки до классики и новостных каналов.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Избранное</h3>
+                <p>Сохраняйте любимые станции для быстрого доступа и создавайте собственные плейлисты.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-broadcast-tower"></i>
+                </div>
+                <h3>Высокое качество</h3>
+                <p>Поддержка потоков высокого качества с минимальной задержкой и стабильным соединением.</p>
+            </div>
+        </div>
+        
+        <div class="download-section">
+            <h2>Начните слушать прямо сейчас!</h2>
+            <p>Установите приложение Online Radio бесплатно из Google Play Market</p>
+            <a href="https://play.google.com/store/apps/details?id=com.zelianko.onlineradio" class="download-btn">
+                <i class="fab fa-google-play"></i> Скачать в Google Play
+            </a>
+            
+            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <img src="https://play-lh.googleusercontent.com/RVtu1hFBhArwEud58kvQTJy0LvyJqxY6Se3sueOGE8yr8aXMqJQK1zbuL31VclmXmA=w1052-h592-rw" alt="Скриншот приложения 1" class="app-screenshot">
+                <img src="https://play-lh.googleusercontent.com/izE1R8b_3Hj0W-4x8G6WeNsmA8pMpU1ym5DEzcViN5z9DlsP0Udg3C4c2m_2QFuOo8k=w1052-h592-rw" alt="Скриншот приложения 2" class="app-screenshot">
+                <img src="https://play-lh.googleusercontent.com/UCsOhKWwOqvOcIag-02xORVgkRE6kz00PT8EXvdW3UotQcx_1StIGZcoGh2BaUv6eA=w1052-h592-rw" alt="Скриншот приложения 3" class="app-screenshot">
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2023 Online Radio. Все права защищены.</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">Контактная информация: zelianko.onlineradio@gmail.com</p>
+    </footer>
+
+    <script>
+        // Анимация при прокрутке
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.feature-card, .app-screenshot, .download-section');
+                const windowHeight = window.innerHeight;
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const animationPoint = windowHeight - 100;
+                    
+                    if (elementPosition < animationPoint) {
+                        element.classList.add('animated');
+                    }
+                });
+            };
+            
+            // Запускаем сразу для видимых элементов
+            animateOnScroll();
+            
+            // И при прокрутке
+            window.addEventListener('scroll', animateOnScroll);
+            
+            // Анимация для кнопки скачивания
+            const downloadBtn = document.querySelector('.download-btn');
+            if (downloadBtn) {
+                setInterval(() => {
+                    downloadBtn.style.transform = 'translateY(-3px)';
+                    setTimeout(() => {
+                        downloadBtn.style.transform = 'translateY(0)';
+                    }, 1000);
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
