@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Radio - Лучшие радиостанции в вашем смартфоне</title>
+    <title>Green Mobile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #4a76a8;
-            --secondary: #2b547e;
-            --accent: #f39c12;
-            --light: #f5f5f5;
-            --dark: #333;
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --dark-color: #2d3436;
+            --light-color: #f5f6fa;
+            --accent-color: #fd79a8;
+            --success-color: #00b894;
         }
         
         * {
@@ -21,183 +23,287 @@
         }
         
         body {
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: radial-gradient(circle at 75% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            z-index: 1;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            position: relative;
-            z-index: 2;
-            animation: fadeInDown 1s ease-out;
-        }
-        
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-            animation: fadeIn 1.5s ease-out;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 20px;
         }
         
-        .app-screenshot {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 15px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform: translateY(20px);
-            opacity: 0;
-        }
-        
-        .app-screenshot.animated {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .app-screenshot:hover {
-            transform: scale(1.05) rotate(-2deg);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-        
-        .feature-card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            width: 300px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: all 0.4s ease;
-            transform: scale(0.95);
-            opacity: 0;
-        }
-        
-        .feature-card.animated {
-            transform: scale(1);
-            opacity: 1;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover .feature-icon {
-            transform: rotate(15deg) scale(1.2);
-        }
-        
-        .download-section {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            margin: 3rem 0;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transform: translateY(30px);
-            opacity: 0;
-            transition: all 0.6s ease-out;
-        }
-        
-        .download-section.animated {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .download-btn {
-            display: inline-block;
-            background-color: var(--accent);
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 1.5rem;
-            transition: all 0.3s;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
         }
         
-        .download-btn::after {
+        header::before {
             content: '';
             position: absolute;
             top: -50%;
-            left: -60%;
+            left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.3) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: rotate(30deg);
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: pulse 15s infinite linear;
+        }
+        
+        @keyframes pulse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .tab-btn {
+            padding: 12px 24px;
+            background: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .tab-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            color: var(--primary-color);
+        }
+        
+        .tab-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-btn.active::after {
+            width: 100%;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .app-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 25px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .app-card:hover .app-icon {
+            transform: scale(1.05) rotate(5deg);
+        }
+        
+        .app-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .app-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         .download-btn:hover {
-            background-color: #e67e22;
             transform: translateY(-3px);
-            box-shadow: 0 8px 16px rgba(243, 156, 18, 0.3);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
         }
         
-        .download-btn:hover::after {
-            animation: shine 1.5s infinite;
+        .download-btn i {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .developer-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            background: var(--accent-color);
         }
         
         footer {
-            background-color: var(--dark);
-            color: white;
             text-align: center;
             padding: 2rem 0;
-            margin-top: 3rem;
+            color: #666;
+            font-size: 0.9rem;
         }
         
-        /* Анимации */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .feature p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -206,7 +312,7 @@
         @keyframes fadeInDown {
             from {
                 opacity: 0;
-                transform: translateY(-30px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -214,143 +320,226 @@
             }
         }
         
-        @keyframes shine {
-            0% { left: -60%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-        
-        /* Анимация волн в шапке */
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f5f5f5" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f5f5f5" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f5f5f5"/></svg>');
-            background-size: cover;
-            background-repeat: no-repeat;
-            animation: wave 10s linear infinite;
-            z-index: 1;
-        }
-        
-        .wave:nth-child(2) {
-            animation-delay: -5s;
-            opacity: 0.7;
-        }
-        
-        .wave:nth-child(3) {
-            animation-delay: -2s;
-            opacity: 0.4;
-        }
-        
-        @keyframes wave {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         @media (max-width: 768px) {
-            .features {
+            .tabs {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .feature-card {
+            .tab-btn {
                 width: 100%;
+                max-width: 300px;
+            }
+            
+            .app-card {
+                padding: 1.5rem;
+            }
+            
+            .app-icon {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="logo">Online Radio</div>
-        <div class="tagline">Тысячи радиостанций со всего мира в вашем кармане. Слушайте любимую музыку, новости и подкасты где угодно!</div>
+        <div class="container">
+            <h1>Приложения Green Mobile</h1>
+            <p class="subtitle">Качественные мобильные приложения для вашего удобства</p>
+        </div>
     </header>
     
     <div class="container">
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-music"></i>
-                </div>
-                <h3>Богатая коллекция</h3>
-                <p>Доступ к тысячам радиостанций различных жанров: от поп-музыки до классики и новостных каналов.</p>
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="numerologic">Нумерология</button>
+            <button class="tab-btn" data-tab="kitchen">Кухонный калькулятор</button>
+            <button class="tab-btn" data-tab="spacenews">Новости космоса</button>
+            <button class="tab-btn" data-tab="radio">Онлайн радио</button>
+            <button class="tab-btn" data-tab="about">О разработчике</button>
+        </div>
+        
+        <div id="numerologic" class="tab-content active">
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/qeHHI3ar0gPsatuuc2bVX5VYr42bs3j1fwTZHGCQGBAq7tDZvoi0ddPI8jed2eJmPso=w240-h480-rw" alt="Нумерология" class="app-icon">
+                <h2 class="app-title">Нумерология</h2>
+                <p class="app-description">
+                    Узнайте тайны чисел, скрытые в вашей дате рождения и имени. 
+                    Приложение поможет вам раскрыть вашу судьбу, характер и потенциал 
+                    через древнюю науку нумерологию.
+                </p>
+                <a href="https://play.google.com/store/apps/details?id=com.zelianko.numerologic" class="download-btn" target="_blank">
+                    <i class="fab fa-google-play"></i> Установить
+                </a>
             </div>
             
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-heart"></i>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-calculator"></i>
+                    <h3>Расчет чисел</h3>
+                    <p>Автоматический расчет всех значимых чисел по вашим данным</p>
                 </div>
-                <h3>Избранное</h3>
-                <p>Сохраняйте любимые станции для быстрого доступа и создавайте собственные плейлисты.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-broadcast-tower"></i>
+                <div class="feature">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Подробные толкования</h3>
+                    <p>Полные описания значений чисел и их влияния на вашу жизнь</p>
                 </div>
-                <h3>Высокое качество</h3>
-                <p>Поддержка потоков высокого качества с минимальной задержкой и стабильным соединением.</p>
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Прогнозы</h3>
+                    <p>Персональные прогнозы на основе нумерологических расчетов</p>
+                </div>
             </div>
         </div>
         
-        <div class="download-section">
-            <h2>Начните слушать прямо сейчас!</h2>
-            <p>Установите приложение Online Radio бесплатно из Google Play Market</p>
-            <a href="https://play.google.com/store/apps/details?id=com.zelianko.onlineradio" class="download-btn">
-                <i class="fab fa-google-play"></i> Скачать в Google Play
-            </a>
+        <div id="kitchen" class="tab-content">
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/5W3KoKls1O6alrlh95NITsGq9sSmuwKpKwnPGiYUe31aA-Nhnst50-G2A0oqDbYFMoRK=w240-h480-rw" alt="Кухонный калькулятор" class="app-icon">
+                <h2 class="app-title">Кухонный калькулятор</h2>
+                <p class="app-description">
+                    Незаменимый помощник на кухне! Конвертируйте меры веса и объема, 
+                    рассчитывайте пропорции ингредиентов для рецептов и упрощайте 
+                    процесс приготовления пищи.
+                </p>
+                <a href="https://play.google.com/store/apps/details?id=com.zelianko.kitchencalculator" class="download-btn" target="_blank">
+                    <i class="fab fa-google-play"></i> Установить
+                </a>
+            </div>
             
-            <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                <img src="https://play-lh.googleusercontent.com/RVtu1hFBhArwEud58kvQTJy0LvyJqxY6Se3sueOGE8yr8aXMqJQK1zbuL31VclmXmA=w1052-h592-rw" alt="Скриншот приложения 1" class="app-screenshot">
-                <img src="https://play-lh.googleusercontent.com/izE1R8b_3Hj0W-4x8G6WeNsmA8pMpU1ym5DEzcViN5z9DlsP0Udg3C4c2m_2QFuOo8k=w1052-h592-rw" alt="Скриншот приложения 2" class="app-screenshot">
-                <img src="https://play-lh.googleusercontent.com/UCsOhKWwOqvOcIag-02xORVgkRE6kz00PT8EXvdW3UotQcx_1StIGZcoGh2BaUv6eA=w1052-h592-rw" alt="Скриншот приложения 3" class="app-screenshot">
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-weight-hanging"></i>
+                    <h3>Конвертер мер</h3>
+                    <p>Быстрое преобразование между граммами, миллилитрами, стаканами и другими единицами</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Пропорции</h3>
+                    <p>Автоматический пересчет количества ингредиентов для любого числа порций</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h3>Таймеры</h3>
+                    <p>Встроенные таймеры для контроля времени приготовления блюд</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="spacenews" class="tab-content">
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/OIA_iGfTETHQzfhqPHLzV4RbptwzNUSDGRuIST2SfXvwBj5reH7EYyq0HjTaVOy3guE=w240-h480-rw" alt="Новости космоса" class="app-icon">
+                <h2 class="app-title">Новости космоса</h2>
+                <p class="app-description">
+                    Будьте в курсе последних открытий и событий в мире астрономии и космонавтики. 
+                    Приложение собирает новости от ведущих космических агентств и научных изданий.
+                </p>
+                <a href="https://play.google.com/store/apps/details?id=com.zelianko.spacenews" class="download-btn" target="_blank">
+                    <i class="fab fa-google-play"></i> Установить
+                </a>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Свежие новости</h3>
+                    <p>Актуальные статьи о космосе и астрономии из проверенных источников</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-image"></i>
+                    <h3>Фото дня</h3>
+                    <p>Потрясающие фотографии космоса от NASA и других агентств</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bell"></i>
+                    <h3>Уведомления</h3>
+                    <p>Оповещения о важных космических событиях и запусках</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="radio" class="tab-content">
+            <div class="app-card">
+                <img src="https://play-lh.googleusercontent.com/CPT8ROhFQEtkqK_bMVJt6g7-XBfvz3ClL1pFNhU5UMxwq4x-qdg-Lv8PRKoooXexbaI=w240-h480-rw" alt="Онлайн радио" class="app-icon">
+                <h2 class="app-title">Онлайн радио</h2>
+                <p class="app-description">
+                    Слушайте тысячи радиостанций со всего мира в одном приложении. 
+                    Подборки по жанрам, странам и популярности. Работает даже при слабом интернете.
+                </p>
+                <a href="https://play.google.com/store/apps/details?id=com.zelianko.onlineradio" class="download-btn" target="_blank">
+                    <i class="fab fa-google-play"></i> Установить
+                </a>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-music"></i>
+                    <h3>Тысячи станций</h3>
+                    <p>Огромная коллекция радиостанций на любой вкус</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-heart"></i>
+                    <h3>Избранное</h3>
+                    <p>Сохраняйте любимые станции для быстрого доступа</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-headphones"></i>
+                    <h3>Фоновый режим</h3>
+                    <p>Продолжайте слушать, используя другие приложения</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="about" class="tab-content">
+            <div class="about-content">
+                <img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=360/uploads/users/1499/posts/29328/preview_image/kotlin.jpg" alt="Разработчик" class="developer-img">
+                <h2></h2>
+                <p>Разработчик мобильных приложений с более чем 5-летним опытом.</p>
+                <p>Создаю удобные и функциональные приложения для Android, которые помогают людям в повседневной жизни.</p>
+                
+                <div class="social-links">
+                    <a href="mailto:zely1984@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                </div>
             </div>
         </div>
     </div>
     
     <footer>
-        <p>© 2023 Online Radio. Все права защищены.</p>
-        <p style="margin-top: 1rem; opacity: 0.8;">Контактная информация: zely1984@gmail.com</p>
+        <div class="container">
+            <p>© 2023 Все права защищены. Приложения от Zelianko zely1984@gmail.com</p>
+        </div>
     </footer>
 
     <script>
-        // Анимация при прокрутке
         document.addEventListener('DOMContentLoaded', function() {
-            const animateOnScroll = () => {
-                const elements = document.querySelectorAll('.feature-card, .app-screenshot, .download-section');
-                const windowHeight = window.innerHeight;
-                
-                elements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const animationPoint = windowHeight - 100;
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Удаляем активный класс у всех кнопок
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // Добавляем активный класс текущей кнопке
+                    this.classList.add('active');
                     
-                    if (elementPosition < animationPoint) {
-                        element.classList.add('animated');
-                    }
+                    // Скрываем все вкладки
+                    const tabContents = document.querySelectorAll('.tab-content');
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Показываем выбранную вкладку
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
                 });
-            };
-            
-            // Запускаем сразу для видимых элементов
-            animateOnScroll();
-            
-            // И при прокрутке
-            window.addEventListener('scroll', animateOnScroll);
-            
-            // Анимация для кнопки скачивания
-            const downloadBtn = document.querySelector('.download-btn');
-            if (downloadBtn) {
-                setInterval(() => {
-                    downloadBtn.style.transform = 'translateY(-3px)';
-                    setTimeout(() => {
-                        downloadBtn.style.transform = 'translateY(0)';
-                    }, 1000);
-                }, 3000);
-            }
+            });
         });
     </script>
 </body>
